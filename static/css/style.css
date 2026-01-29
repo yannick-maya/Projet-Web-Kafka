@@ -36,7 +36,7 @@ body {
 .navbar-brand {
     font-size: 1.5rem;
     font-weight: bold;
-    color: white !important;
+    color: rgb(106, 77, 77) !important;
 }
 
 .navbar-brand i {
@@ -44,12 +44,12 @@ body {
 }
 
 .nav-link {
-    color: rgba(255, 255, 255, 0.8) !important;
+    color: rgba(48, 38, 38, 0.8) !important;
     transition: var(--transition);
 }
 
 .nav-link:hover {
-    color: white !important;
+    color: rgb(203, 58, 58) !important;
     transform: translateY(-2px);
 }
 

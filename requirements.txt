@@ -1,8 +1,7 @@
 flask==3.0.0
 flask-socketio==5.3.5
 flask-cors==4.0.0
-kafka-python==2.0.2
+kafka-python-ng==2.2.3
 faker==22.0.0
 python-socketio==5.10.0
-eventlet==0.33.3
 python-engineio==4.8.0
