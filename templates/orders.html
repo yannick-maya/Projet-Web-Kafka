@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Commandes - E-Commerce Kafka{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="d-flex gap-2">
+            <button class="btn btn-primary" id="createOrderBtn">
+                <i class="fas fa-plus"></i> Créer une Commande
+            </button>
+            <button class="btn btn-success" id="autoGenerateBtn">
+                <i class="fas fa-play"></i> Auto-Générer
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Liste des Commandes</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th>ID Commande</th>
+                                <th>Client</th>
+                                <th>Produit</th>
+                                <th>Montant</th>
+                                <th>Date</th>
+                                <th>Statut</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ordersTableBody">
+                            <tr class="text-muted text-center">
+                                <td colspan="6">Aucune commande pour le moment...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/orders.js') }}"></script>
+{% endblock %}

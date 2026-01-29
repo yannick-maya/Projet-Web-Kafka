@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}Paiements - E-Commerce Kafka{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Créer un Paiement</h5>
+            </div>
+            <div class="card-body">
+                <form id="paymentForm">
+                    <div class="mb-3">
+                        <label for="orderId" class="form-label">ID Commande</label>
+                        <input type="text" class="form-control" id="orderId" placeholder="Ex: uuid..." required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="paymentMethod" class="form-label">Méthode de Paiement</label>
+                        <select class="form-select" id="paymentMethod" required>
+                            <option value="">Sélectionner...</option>
+                            <option value="Credit Card">Carte de Crédit</option>
+                            <option value="Debit Card">Carte de Débit</option>
+                            <option value="PayPal">PayPal</option>
+                            <option value="Bank Transfer">Virement Bancaire</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="amount" class="form-label">Montant</label>
+                        <input type="number" class="form-control" id="amount" placeholder="Ex: 99.99" step="0.01" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="fas fa-send"></i> Envoyer le Paiement
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="card chart-card">
+            <div class="card-header">
+                <h5 class="mb-0">Paiements (Succès vs Échecs)</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="paymentPieChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Liste des Paiements</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th>ID Paiement</th>
+                                <th>ID Commande</th>
+                                <th>Méthode</th>
+                                <th>Montant</th>
+                                <th>Statut</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="paymentsTableBody">
+                            <tr class="text-muted text-center">
+                                <td colspan="6">Aucun paiement pour le moment...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/payments.js') }}"></script>
+{% endblock %}

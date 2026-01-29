@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}Livraisons - E-Commerce Kafka{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-outline-primary filter-btn" data-filter="all">
+                Tous
+            </button>
+            <button type="button" class="btn btn-outline-warning filter-btn" data-filter="Pending">
+                <i class="fas fa-box"></i> En Attente
+            </button>
+            <button type="button" class="btn btn-outline-info filter-btn" data-filter="In Transit">
+                <i class="fas fa-truck"></i> En Transit
+            </button>
+            <button type="button" class="btn btn-outline-success filter-btn" data-filter="Delivered">
+                <i class="fas fa-check-circle"></i> Livrée
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Timeline des Livraisons</h5>
+            </div>
+            <div class="card-body">
+                <div class="timeline" id="deliveryTimeline">
+                    <div class="text-muted text-center py-5">
+                        Aucune livraison pour le moment...
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Tableau des Livraisons</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th>ID Livraison</th>
+                                <th>ID Commande</th>
+                                <th>Adresse</th>
+                                <th>Statut</th>
+                                <th>Date Estimée</th>
+                                <th>Progression</th>
+                            </tr>
+                        </thead>
+                        <tbody id="deliveriesTableBody">
+                            <tr class="text-muted text-center">
+                                <td colspan="6">Aucune livraison pour le moment...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/deliveries.js') }}"></script>
+{% endblock %}
