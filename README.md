@@ -334,7 +334,8 @@ Ce projet est fourni à titre d'exemple éducatif.
 
 ## 👨‍💻 Auteur
 
-Créé pour le cours "Introduction Big Data" - Master 1 UCAO
+Créé pour le cours "Introduction Big Data" - Master 1 UCAO 
+par Dayo K. Cyrille & Madjiadoum Yannick
 
 ## 🤝 Support
 
