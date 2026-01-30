@@ -1,8 +1,8 @@
 """Configuration Kafka centralisée"""
-
+import json
+import logging
 from kafka.admin import KafkaAdminClient, NewTopic
 from kafka.errors import TopicAlreadyExistsError
-import logging
 
 # Configuration des serveurs Kafka
 BOOTSTRAP_SERVERS = ['localhost:9092']
@@ -13,20 +13,21 @@ TOPICS = ['orders', 'payments', 'deliveries']
 # Configuration des consumers
 CONSUMER_CONFIG = {
     'bootstrap_servers': BOOTSTRAP_SERVERS,
-    'auto_offset_reset': 'earliest',
-    'enable_auto_commit': True,
     'group_id': 'ecommerce-group',
-    'value_deserializer': lambda m: m.decode('utf-8') if m else None,
+    'auto_offset_reset': 'latest',
+    'enable_auto_commit': True,
+    'value_deserializer': lambda v: json.loads(v.decode('utf-8'))
 }
 
 # Configuration des producers
 PRODUCER_CONFIG = {
     'bootstrap_servers': BOOTSTRAP_SERVERS,
-    'value_serializer': lambda v: str(v).encode('utf-8'),
+    'value_serializer': lambda v: json.dumps(v).encode('utf-8')
 }
 
+# Logger
 logger = logging.getLogger(__name__)
-
+logging.basicConfig(level=logging.INFO)  # <- Assure que le logger fonctionne
 
 def create_topics_if_not_exist():
     """Crée les topics Kafka s'ils n'existent pas"""
@@ -42,6 +43,7 @@ def create_topics_if_not_exist():
             for topic in TOPICS
         ]
         
+        # La création retourne un dict topic -> future
         fs = admin_client.create_topics(new_topics=new_topics, validate_only=False)
         
         for topic, f in fs.items():

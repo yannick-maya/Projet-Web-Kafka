@@ -11,8 +11,8 @@ document.addEventListener('DOMContentLoaded', function() {
     initCharts();
     updateStats();
     
-    // Auto-rafraîchir les stats toutes les 5 secondes
-    setInterval(updateStats, 5000);
+    // // Auto-rafraîchir les stats toutes les 5 secondes
+    // setInterval(updateStats, 5000);
 });
 
 // Initialiser les graphiques
@@ -99,6 +99,15 @@ function initCharts() {
 }
 
 // Mettre à jour les statistiques
+socket.on('stats_update', function(stats) {
+    document.getElementById('totalOrders').textContent = stats.total_orders;
+    document.getElementById('successPayments').textContent = stats.success_payments;
+    document.getElementById('totalDeliveries').textContent = stats.total_deliveries;
+    document.getElementById('totalRevenue').textContent = stats.total_revenue.toFixed(2) + ' €';
+});
+
+
+
 function updateStats() {
     fetch('/api/stats')
         .then(response => response.json())

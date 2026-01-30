@@ -29,8 +29,8 @@ class KafkaProducerService:
             order_data = generate_fake_order()
         
         try:
-            message = json.dumps(order_data)
-            self.producer.send('orders', value=message)
+       
+            self.producer.send('orders', value=order_data)
             self.producer.flush()
             logger.info(f"Commande envoyée: {order_data['order_id']}")
             return order_data
@@ -44,8 +44,7 @@ class KafkaProducerService:
             payment_data = generate_fake_payment()
         
         try:
-            message = json.dumps(payment_data)
-            self.producer.send('payments', value=message)
+            self.producer.send('payments', value=payment_data)
             self.producer.flush()
             logger.info(f"Paiement envoyé: {payment_data['payment_id']}")
             return payment_data
@@ -59,8 +58,7 @@ class KafkaProducerService:
             delivery_data = generate_fake_delivery()
         
         try:
-            message = json.dumps(delivery_data)
-            self.producer.send('deliveries', value=message)
+            self.producer.send('deliveries', value=delivery_data)
             self.producer.flush()
             logger.info(f"Livraison envoyée: {delivery_data['delivery_id']}")
             return delivery_data
@@ -87,16 +85,16 @@ class KafkaConsumerService:
         self.running = True
         
         for topic in TOPICS:
-            # Créer un consumer pour chaque topic
             try:
+                # ✅ CORRECTION : auto_offset_reset ne doit être défini QU’UNE FOIS
                 consumer = KafkaConsumer(
                     topic,
-                    **CONSUMER_CONFIG,
-                    auto_offset_reset='latest'  # Commencer par les nouveaux messages
+                    **CONSUMER_CONFIG   # <-- contient auto_offset_reset
                 )
+
                 self.consumers[topic] = consumer
                 
-                # Démarrer un thread pour consommer les messages
+                # Thread par topic
                 thread = threading.Thread(
                     target=self._consume_from_topic,
                     args=(topic, consumer),
@@ -104,9 +102,11 @@ class KafkaConsumerService:
                 )
                 thread.start()
                 self.threads[topic] = thread
-                logger.info(f"Consumer pour '{topic}' démarré")
+
+                logger.info(f"✅ Consumer Kafka démarré pour le topic '{topic}'")
+
             except Exception as e:
-                logger.error(f"Erreur lors du démarrage du consumer pour '{topic}': {e}")
+                logger.error(f"❌ Erreur lors du démarrage du consumer pour '{topic}': {e}")
     
     def _consume_from_topic(self, topic, consumer):
         """Consomme les messages d'un topic spécifique"""
@@ -116,12 +116,13 @@ class KafkaConsumerService:
                     break
                 
                 try:
-                    data = json.loads(message.value)
-                    logger.info(f"Message reçu de '{topic}': {data}")
+                    data = message.value
+                    logger.info(f"📨 Message reçu de '{topic}': {data}")
                     
-                    # Appeler le callback si défini
+                    # Callback (vers app.py)
                     if self.callback:
                         self.callback(topic, data)
+
                 except json.JSONDecodeError as e:
                     logger.error(f"Erreur lors du décodage du message: {e}")
         except Exception as e:
@@ -142,7 +143,10 @@ class KafkaConsumerService:
         self.threads.clear()
 
 
-# Fonctions pour générer des données fictives
+# ======================================================================
+# Fake Data Generators
+# ======================================================================
+
 def generate_fake_order():
     """Génère une commande fictive"""
     return {
@@ -176,6 +180,6 @@ def generate_fake_delivery():
         'order_id': fake.uuid4(),
         'address': fake.address().replace('\n', ', '),
         'status': fake.random_element(['Pending', 'In Transit', 'Delivered']),
-        'estimated_date': fake.date_this_month(),
+        'estimated_date': str(fake.date_this_month()),
         'timestamp': datetime.now().isoformat()
     }
