@@ -360,3 +360,6 @@ Pour toute question ou problème:
 ---
 
 **Bon codage! 🚀**
+
+
+envoyer les donnees en JSON dans le cli, puis signaler dans quelle service les donnees son envoyees 
