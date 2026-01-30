@@ -72,7 +72,7 @@
            │  ┌──────────────────────────────────┐ │
            │  │  Topic: "orders"                 │ │
            │  │  - Partition 0                   │ │
-           │  │  - [msg1, msg2, msg3, ...]      │ │
+           │  │  - [msg1, msg2, msg3, ...]       │ │
            │  └──────────────────────────────────┘ │
            │                                        │
            │  ┌──────────────────────────────────┐ │
@@ -153,7 +153,7 @@
       ├─ Reçoit le message sérialisé
       ├─ Ajoute timestamp
       ├─ Assign offset (position dans le log)
-      ├─ Écrit sur disque (persistance)
+      ├─ Écrit sur disque et dans la base de donnees (persistance)
       ├─ Zookeeper met à jour les métadonnées
       └─ Message est PERSISTE (durable)
 
