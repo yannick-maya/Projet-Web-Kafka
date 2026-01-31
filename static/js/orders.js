@@ -73,7 +73,7 @@ function addOrderToTable(order, animate = true) {
     // Supprimer le message "Aucune commande"
     const emptyRow = tbody.querySelector('.text-muted');
     if (emptyRow) {
-        emptyRow.parentElement.remove();
+        emptyRow.remove();
     }
     
     // Vérifier si la commande existe déjà

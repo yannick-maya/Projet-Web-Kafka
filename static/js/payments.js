@@ -2,55 +2,55 @@
 const socket = io();
 
 // Variables globales
-let paymentPieChart = null;
+// let paymentPieChart = null;
 let paymentCount = 0;
 
 // Initialiser au chargement
 document.addEventListener('DOMContentLoaded', function() {
-    initChart();
+    // initChart();
     setupEventListeners();
 });
 
 // Initialiser le graphique circulaire
-function initChart() {
-    const ctx = document.getElementById('paymentPieChart');
-    if (ctx) {
-        paymentPieChart = new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                labels: ['Succès', 'Échecs'],
-                datasets: [{
-                    data: [0, 0],
-                    backgroundColor: [
-                        '#27ae60',
-                        '#e74c3c'
-                    ],
-                    borderColor: [
-                        '#fff',
-                        '#fff'
-                    ],
-                    borderWidth: 2
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: true,
-                plugins: {
-                    legend: {
-                        position: 'bottom',
-                        labels: {
-                            padding: 15,
-                            font: {
-                                size: 14,
-                                weight: 'bold'
-                            }
-                        }
-                    }
-                }
-            }
-        });
-    }
-}
+// function initChart() {
+//     const ctx = document.getElementById('paymentPieChart');
+//     if (ctx) {
+//         paymentPieChart = new Chart(ctx, {
+//             type: 'doughnut',
+//             data: {
+//                 labels: ['Succès', 'Échecs'],
+//                 datasets: [{
+//                     data: [0, 0],
+//                     backgroundColor: [
+//                         '#27ae60',
+//                         '#e74c3c'
+//                     ],
+//                     borderColor: [
+//                         '#fff',
+//                         '#fff'
+//                     ],
+//                     borderWidth: 2
+//                 }]
+//             },
+//             options: {
+//                 responsive: true,
+//                 maintainAspectRatio: true,
+//                 plugins: {
+//                     legend: {
+//                         position: 'bottom',
+//                         labels: {
+//                             padding: 15,
+//                             font: {
+//                                 size: 14,
+//                                 weight: 'bold'
+//                             }
+//                         }
+//                     }
+//                 }
+//             }
+//         });
+//     }
+// }
 
 // Configuration des event listeners
 function setupEventListeners() {
@@ -196,11 +196,11 @@ socket.on('new_payment', function(payment) {
     addPaymentToTable(payment);
     
     // Récupérer les statistiques mises à jour
-    fetch('/api/stats')
-        .then(response => response.json())
-        .then(data => {
-            updatePieChart(data);
-        });
+    // fetch('/api/stats')
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         updatePieChart(data);
+    //     });
 });
 
 socket.on('connect', function() {
