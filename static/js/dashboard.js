@@ -115,7 +115,7 @@ function updateStats() {
             document.getElementById('totalOrders').textContent = data.total_orders;
             document.getElementById('successPayments').textContent = data.success_payments;
             document.getElementById('totalDeliveries').textContent = data.total_deliveries;
-            document.getElementById('totalRevenue').textContent = data.total_revenue.toFixed(2) + ' FCFA';
+            document.getElementById('totalRevenue').textContent = data.total_revenue.toFixed(2) + ' €';
 
             // Mettre à jour les graphiques
             updateCharts(data);

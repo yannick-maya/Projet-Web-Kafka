@@ -1,0 +1,32 @@
+Diagramme de Séquence
+
+(navigateur)
+Client           Flask          Kafka      Consumer        WebSocket      Browser(navigateur)
+  │                │              │            │              │            │
+  ├──POST /api/──▶│              │             │              │            │
+  │                │──serialize──▶│            │              │            │
+  │                │──send───────▶│            │              │            │
+  │                │◀─ack ────────│            │              │            │
+  │◀─    OK ──────│               │            │              │            │
+  │                │              │─message──▶ │              │            │
+  │                │              │            │──callback──▶ │            │
+  │                │              │            │              │──emit────▶ │
+  │                │              │            │              │             │──update DOM
+  │                │              │            │              │             │◀─ display
+  │◀───────────────────────────────────────────────────────────────────────│
+  │                                                         (in real-time!)
+
+
+            Acteurs / Objets dans le diagramme
+
+Client (navigateur) : Utilisateur qui interagit avec l’application via l’UI (bouton « Créer une commande » par exemple).
+
+Flask : Backend qui reçoit les requêtes HTTP et agit comme Producteur Kafka.
+
+Kafka : Système de messagerie qui stocke et distribue les messages.
+
+Consumer : Service (thread séparé) qui lit les messages depuis Kafka.
+
+WebSocket : Serveur WebSocket (Socket.IO) qui diffuse les événements en temps réel aux clients.
+
+Browser (navigateur) : Le même client, mais ici on montre la réception de l’événement pour mise à jour de l’interface.
