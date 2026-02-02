@@ -366,5 +366,5 @@ envoyer les donnees en JSON dans le cli, puis signaler dans quelle service les d
 
 commandes 
 
-cd C:\kafka
-bin\windows\kafka-topics.bat --bootstrap-server localhost:9092 --list
+
+docker exec -it projet-web-kafka-kafka-1 kafka-topics --bootstrap-server localhost:9092 --list

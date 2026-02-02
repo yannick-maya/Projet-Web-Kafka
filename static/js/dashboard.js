@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // setInterval(updateStats, 5000);
 });
 
+
 // Initialiser les graphiques
 function initCharts() {
     // Graphique des commandes par heure
