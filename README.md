@@ -363,3 +363,8 @@ Pour toute question ou problème:
 
 
 envoyer les donnees en JSON dans le cli, puis signaler dans quelle service les donnees son envoyees ,  arranger les donnes dans le tableau , et dans service
+
+commandes 
+
+cd C:\kafka
+bin\windows\kafka-topics.bat --bootstrap-server localhost:9092 --list
