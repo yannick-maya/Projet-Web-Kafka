@@ -67,7 +67,7 @@ class Database:
         
         conn.commit()
         conn.close()
-        logger.info("✅ Base de données initialisée")
+        logger.info(" Base de données initialisée")
     
     # ========== ORDERS ==========
     
@@ -94,10 +94,10 @@ class Database:
             
             conn.commit()
             conn.close()
-            logger.info(f"✅ Commande sauvegardée: {order_data['order_id']}")
+            logger.info(f" Commande sauvegardée: {order_data['order_id']}")
             return True
         except Exception as e:
-            logger.error(f"❌ Erreur sauvegarde commande: {e}")
+            logger.error(f" Erreur sauvegarde commande: {e}")
             return False
     
     def get_all_orders(self, limit=50):
@@ -131,7 +131,7 @@ class Database:
             
             return orders
         except Exception as e:
-            logger.error(f"❌ Erreur récupération commandes: {e}")
+            logger.error(f" Erreur récupération commandes: {e}")
             return []
     
     # ========== PAYMENTS ==========
@@ -157,10 +157,10 @@ class Database:
             
             conn.commit()
             conn.close()
-            logger.info(f"✅ Paiement sauvegardé: {payment_data['payment_id']}")
+            logger.info(f" Paiement sauvegardé: {payment_data['payment_id']}")
             return True
         except Exception as e:
-            logger.error(f"❌ Erreur sauvegarde paiement: {e}")
+            logger.error(f" Erreur sauvegarde paiement: {e}")
             return False
     
     def get_all_payments(self, limit=50):
@@ -192,7 +192,7 @@ class Database:
             
             return payments
         except Exception as e:
-            logger.error(f"❌ Erreur récupération paiements: {e}")
+            logger.error(f" Erreur récupération paiements: {e}")
             return []
     
     # ========== DELIVERIES ==========
@@ -218,10 +218,10 @@ class Database:
             
             conn.commit()
             conn.close()
-            logger.info(f"✅ Livraison sauvegardée: {delivery_data['delivery_id']}")
+            logger.info(f" Livraison sauvegardée: {delivery_data['delivery_id']}")
             return True
         except Exception as e:
-            logger.error(f"❌ Erreur sauvegarde livraison: {e}")
+            logger.error(f" Erreur sauvegarde livraison: {e}")
             return False
     
     def get_all_deliveries(self, limit=50):
@@ -253,7 +253,7 @@ class Database:
             
             return deliveries
         except Exception as e:
-            logger.error(f"❌ Erreur récupération livraisons: {e}")
+            logger.error(f" Erreur récupération livraisons: {e}")
             return []
     
     # ========== STATISTICS ==========
@@ -294,7 +294,7 @@ class Database:
                 'payment_success_rate': round(payment_success_rate, 2)
             }
         except Exception as e:
-            logger.error(f"❌ Erreur calcul statistiques: {e}")
+            logger.error(f" Erreur calcul statistiques: {e}")
             return {
                 'total_orders': 0,
                 'total_payments': 0,
@@ -317,8 +317,8 @@ class Database:
             
             conn.commit()
             conn.close()
-            logger.info("✅ Toutes les données ont été supprimées")
+            logger.info(" Toutes les données ont été supprimées")
             return True
         except Exception as e:
-            logger.error(f"❌ Erreur suppression données: {e}")
+            logger.error(f" Erreur suppression données: {e}")
             return False

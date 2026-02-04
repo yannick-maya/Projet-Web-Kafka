@@ -7,7 +7,7 @@ let autoGenerateInterval = null;
 
 // Initialiser au chargement
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('📄 Page Commandes chargée');
+    console.log(' Page Commandes chargée');
     
     // Charger les commandes existantes
     loadExistingOrders();
@@ -15,13 +15,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Charger les commandes existantes depuis la base de données
 function loadExistingOrders() {
-    console.log('📥 Chargement des commandes existantes...');
+    console.log(' Chargement des commandes existantes...');
     
     fetch('/api/orders/list?limit=50')
         .then(response => response.json())
         .then(data => {
             if (data.success && data.orders) {
-                console.log(`✅ ${data.orders.length} commandes chargées`);
+                console.log(` ${data.orders.length} commandes chargées`);
                 
                 // Ajouter chaque commande au tableau
                 data.orders.reverse().forEach(order => {
@@ -30,13 +30,13 @@ function loadExistingOrders() {
             }
         })
         .catch(error => {
-            console.error('❌ Erreur chargement commandes:', error);
+            console.error(' Erreur chargement commandes:', error);
         });
 }
 
 // Créer une nouvelle commande
 function createOrder() {
-    console.log('🛒 Création d\'une nouvelle commande...');
+    console.log(' Création d\'une nouvelle commande...');
     
     fetch('/api/orders/create', {
         method: 'POST',
@@ -48,15 +48,15 @@ function createOrder() {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            console.log('✅ Commande créée:', data.order);
+            console.log(' Commande créée:', data.order);
             // La commande sera ajoutée automatiquement via Socket.IO
         } else {
-            console.error('❌ Erreur création commande:', data.error);
+            console.error(' Erreur création commande:', data.error);
             alert('Erreur lors de la création de la commande');
         }
     })
     .catch(error => {
-        console.error('❌ Erreur:', error);
+        console.error(' Erreur:', error);
         alert('Erreur de connexion au serveur');
     });
 }
@@ -66,7 +66,7 @@ function addOrderToTable(order, animate = true) {
     const tbody = document.getElementById('ordersTableBody');
     
     if (!tbody) {
-        console.error('❌ Table body non trouvé');
+        console.error(' Table body non trouvé');
         return;
     }
     
@@ -79,7 +79,7 @@ function addOrderToTable(order, animate = true) {
     // Vérifier si la commande existe déjà
     const existingRow = tbody.querySelector(`tr[data-order-id="${order.order_id}"]`);
     if (existingRow) {
-        console.log('⚠️ Commande déjà affichée:', order.order_id);
+        console.log('Commande déjà affichée:', order.order_id);
         return;
     }
     
@@ -159,7 +159,7 @@ function toggleAutoGenerate() {
             createOrder();
         }, 2000);
         
-        console.log('🔄 Auto-génération activée');
+        console.log(' Auto-génération activée');
     } else {
         btn.classList.remove('btn-warning');
         btn.classList.add('btn-outline-warning');
@@ -170,7 +170,7 @@ function toggleAutoGenerate() {
             autoGenerateInterval = null;
         }
         
-        console.log('⏸️ Auto-génération désactivée');
+        console.log(' Auto-génération désactivée');
     }
 }
 
@@ -179,26 +179,26 @@ function toggleAutoGenerate() {
 // ============================================================================
 
 socket.on('connect', function() {
-    console.log('✅ Connecté au serveur Socket.IO');
+    console.log(' Connecté au serveur Socket.IO');
 });
 
 socket.on('disconnect', function() {
-    console.log('❌ Déconnecté du serveur Socket.IO');
+    console.log(' Déconnecté du serveur Socket.IO');
 });
 
 socket.on('connect_error', function(error) {
-    console.error('❌ Erreur de connexion Socket.IO:', error);
+    console.error(' Erreur de connexion Socket.IO:', error);
 });
 
 // Événement: nouvelle commande
 socket.on('new_order', function(order) {
-    console.log('📦 Nouvelle commande reçue:', order);
+    console.log(' Nouvelle commande reçue:', order);
     addOrderToTable(order, true);
 });
 
 // Événement: données initiales (au chargement)
 socket.on('initial_data', function(data) {
-    console.log('📊 Données initiales reçues:', data);
+    console.log(' Données initiales reçues:', data);
     
     if (data.orders && data.orders.length > 0) {
         data.orders.reverse().forEach(order => {

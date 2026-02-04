@@ -103,10 +103,10 @@ class KafkaConsumerService:
                 thread.start()
                 self.threads[topic] = thread
 
-                logger.info(f"✅ Consumer Kafka démarré pour le topic '{topic}'")
+                logger.info(f" Consumer Kafka démarré pour le topic '{topic}'")
 
             except Exception as e:
-                logger.error(f"❌ Erreur lors du démarrage du consumer pour '{topic}': {e}")
+                logger.error(f" Erreur lors du démarrage du consumer pour '{topic}': {e}")
     
     def _consume_from_topic(self, topic, consumer):
         """Consomme les messages d'un topic spécifique"""
@@ -117,7 +117,7 @@ class KafkaConsumerService:
                 
                 try:
                     data = message.value
-                    logger.info(f"📨 Message reçu de '{topic}': {data}")
+                    logger.info(f" Message reçu de '{topic}': {data}")
                     
                     # Callback (vers app.py)
                     if self.callback:
